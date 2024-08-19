@@ -1,0 +1,19 @@
+{
+  "name": "bookist-backend",
+  "version": "1.0.0",
+  "description": "Backend for an event booking application",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jimmindungu3/Bookist-Backend.git"
+  },
+  "author": "James Ndungu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jimmindungu3/Bookist-Backend/issues"
+  },
+  "homepage": "https://github.com/jimmindungu3/Bookist-Backend#readme"
+}
