@@ -1,9 +1,11 @@
 const express = require("express");
 const { connectToDb, getDb } = require("./db");
-const { ObjectId } = require("mongodb");
+const { ObjectId, Collection } = require("mongodb");
+const cors = require('cors')
 
 const app = express();
 app.use(express.json()); // middleware to parse JSON objects
+app.use(cors())
 let db;
 
 // Root handler
@@ -33,13 +35,21 @@ app.get("/api/users", (req, res) => {
 
 // DELETE single user by ID
 app.delete("/api/users/:id", (req, res) => {
-  if (ObjectId.isValid(req.params.id)) {
+  const userId = req.params.id;
+
+  if (ObjectId.isValid(userId)) {
     db.collection("users")
-      .deleteOne({ _id: new ObjectId(req.params.id) })
-      .then((result) => res.status(204).json(result))
-      .catch((err) => res.status(500).json({ error: err }));
+      .deleteOne({ _id: new ObjectId(userId) })
+      .then((result) => {
+        if (result.deletedCount === 0) {
+          return res.status(404).json({ message: "User not found" });
+        } else {
+          res.sendStatus(204); // status 204 does not allow for a response message
+        }
+      })
+      .catch((err) => res.status(500).json({ error: "Internal server error" }));
   } else {
-    res.status(404).json({ error: "Passed ID invalid" });
+    res.status(400).json({ error: "Invalid user ID" });
   }
 });
 
