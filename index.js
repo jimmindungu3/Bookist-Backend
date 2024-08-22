@@ -1,11 +1,11 @@
 const express = require("express");
 const { connectToDb, getDb } = require("./db");
 const { ObjectId, Collection } = require("mongodb");
-const cors = require('cors')
+const cors = require("cors");
 
 const app = express();
 app.use(express.json()); // middleware to parse JSON objects
-app.use(cors())
+app.use(cors());
 let db;
 
 // Root handler
@@ -21,6 +21,27 @@ app.post("/api/users", (req, res) => {
       res.status(201).send(result);
     })
     .catch((err) => res.status(500).send(err));
+});
+
+// PATCH a user
+app.patch("/api/users/:id", (req, res) => {
+
+  if (ObjectId.isValid(req.params.id)) {
+    db.collection("users")
+      .updateOne(
+        { _id: new ObjectId(req.params.id) }, // Filter: which document to update
+        { $set: req.body } // Update: the fields to change
+      )
+      .then((result) => {
+        if (result.matchedCount === 0) {
+          return res.status(404).json({ message: "User not found" });
+        }
+        res.status(200).json({ message: "User updated successfully" });
+      })
+      .catch((err) => res.status(500).json({ error: "Internal server error" }));
+  } else {
+    res.status(400).json({ error: "Invalid user ID" });
+  }
 });
 
 // Get all users
