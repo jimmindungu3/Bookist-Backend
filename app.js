@@ -2,6 +2,7 @@ const express = require("express");
 const { connectToDb } = require("./config/db");
 const cors = require("cors");
 const userRoutes = require("./routes/userRoutes");
+const eventRoutes = require("./routes/eventRoutes");
 
 const app = express();
 
@@ -11,6 +12,7 @@ app.use(cors());
 
 // Use user routes
 app.use(userRoutes);
+app.use(eventRoutes);
 
 // Connect to the database and start the server
 connectToDb((err) => {

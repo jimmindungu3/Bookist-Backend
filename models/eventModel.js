@@ -30,11 +30,6 @@ const eventSchema = new mongoose.Schema({
     required: [true, "Price is required"],
     min: [0, "Price cannot be negative"],
   },
-  organizer: {
-    name: { type: String, required: true, trim: true },
-    contact: { type: String, required: true, trim: true },
-    email: { type: String, required: true, trim: true, match: /.+\@.+\..+/ },
-  },
   description: {
     type: String,
     trim: true,
