@@ -57,4 +57,23 @@ userRouter.delete("/api/users/:id", async (req, res) => {
   }
 });
 
+// POST route to authenticate user
+userRouter.post("/users/login", async (req, res) => {
+  const { email, password } = req.body;
+
+  try {
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(401).json({ message: `User with email ${props.email} not found `});
+    }
+    if (password !== user.password) {
+      return res.status(401).json({ message: "Wrong Password" });
+    }
+    res.json({ message: "User authenticated successfully" });
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Server error");
+  }
+});
+
 module.exports = userRouter;

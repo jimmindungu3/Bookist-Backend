@@ -25,7 +25,7 @@ const eventSchema = new mongoose.Schema({
     type: Date,
     required: [true, "Event date and time are required"],
   },
-  charges: {
+  charge: {
     type: Number,
     required: [true, "Price is required"],
     min: [0, "Price cannot be negative"],
@@ -56,7 +56,7 @@ const eventSchema = new mongoose.Schema({
   },
   status: {
     type: String,
-    enum: ["upcoming", "ongoing", "completed"],
+    enum: ["upcoming", "ongoing"],
     default: "upcoming",
   },
 });
