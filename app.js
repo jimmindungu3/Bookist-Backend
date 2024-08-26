@@ -6,14 +6,12 @@ const userRoutes = require("./routes/userRoutes");
 const eventRoutes = require("./routes/eventRoutes");
 const bookingRouter = require("./routes/bookingRoutes");
 
-const PORT = process.env.PORT || 3000
 const app = express();
+const PORT = process.env.PORT || 3000
 
-// Middleware
 app.use(express.json());
 app.use(cors());
 
-// Use user routes
 app.use(userRoutes);
 app.use(eventRoutes);
 app.use(bookingRouter);
