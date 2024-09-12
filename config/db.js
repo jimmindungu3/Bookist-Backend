@@ -1,14 +1,12 @@
 const mongoose = require("mongoose");
 require("dotenv").config();
 
-const db_username = process.env.DB_USERNAME;
-const db_password = process.env.DB_PASSWORD;
-const URI = `mongodb+srv://${db_username}:${db_password}@bookist.udmm8.mongodb.net/?retryWrites=true&w=majority&appName=Bookist`;
+const DB_URI = process.env.DB_URI;
 
 module.exports = {
   connectToDb: (cb) => {
     mongoose
-      .connect(URI)
+      .connect(DB_URI)
       .then(() => {
         console.log("Connected to MongoDB");
         cb();
