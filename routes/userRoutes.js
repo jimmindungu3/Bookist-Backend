@@ -9,12 +9,13 @@ userRouter.get("/", (req, res) => {
 
 // POST a user
 userRouter.post("/api/users", async (req, res) => {
+  console.log(req.body)
   try {
     const newUser = new User(req.body);
     const result = await newUser.save();
     res.status(201).json(result);
   } catch (err) {
-    res.status(400).json({ error: err.message });
+    res.status(400).json({ error: Error });
   }
 });
 
